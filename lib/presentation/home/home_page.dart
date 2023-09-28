@@ -101,22 +101,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 10,
-                  ),
-                  child: IconButton(
-                    onPressed: () => context
-                        .read<HomeBloc>()
-                        .add(ExportLogsPressedEvent(trips: trips)),
-                    icon: const Icon(
-                      Icons.file_download,
-                      color: Colors.orange,
-                    ),
-                  ),
-                )
-              ],
+              actions: trips.isNotEmpty
+                  ? [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 10,
+                        ),
+                        child: IconButton(
+                          onPressed: () => context
+                              .read<HomeBloc>()
+                              .add(ExportLogsPressedEvent(trips: trips)),
+                          icon: const Icon(
+                            Icons.file_download,
+                            color: Colors.orange,
+                          ),
+                        ),
+                      )
+                    ]
+                  : null,
             ),
             body: isLoading
                 ? const Center(
@@ -130,7 +132,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )
                     : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: trips.isEmpty

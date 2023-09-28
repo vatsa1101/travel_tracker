@@ -108,10 +108,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     });
     on<ExportLogsPressedEvent>((event, emit) async {
+      emit(EmptyHomeState());
       try {
         DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
         AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        PermissionStatus status = int.parse(androidInfo.version.release) >= 13
+        PermissionStatus status = androidInfo.version.sdkInt >= 33
             ? await Permission.manageExternalStorage.request()
             : await Permission.storage.request();
         if (status.isGranted) {

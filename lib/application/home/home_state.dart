@@ -9,6 +9,8 @@ abstract class HomeState extends Equatable {
 
 class HomeInitialState extends HomeState {}
 
+class EmptyHomeState extends HomeState {}
+
 class HomeLoadingState extends HomeState {}
 
 class TripLoadingState extends HomeState {}
